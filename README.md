@@ -1,4 +1,4 @@
-# bamazonWelcome to Bamazon!
+Welcome to Bamazon!
 This CLI application uses Node.js and MySQL to emulate an online shopping experience.
 How to Install and Run the Application
 Install the app by cloning this repo and navigating to the file in the command line.
