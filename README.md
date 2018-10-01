@@ -7,6 +7,5 @@ Create a database using MySQL called Bamazon. Use the code in the bamazonSchema.
 There is one dashboard to this application - Customer View. Run the application by typing node bamazonCustomer.js in the command line. Two new dashboards are coming soon.
 Follow the prompts to Make Bamazon Purchases.
 
-<script>
+
 <img src="bamozon.png" />
-</script>
