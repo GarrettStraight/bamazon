@@ -8,7 +8,7 @@ There is one dashboard to this application - Customer View. Run the application 
 Follow the prompts to Make Bamazon Purchases.
 
 
-<img src="Bamanon.gif />
+<img src="Bamanon.gif" />
 
 
-<img src="SQL.png />
+<img src="SQL.png" />
