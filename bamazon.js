@@ -1,6 +1,7 @@
 var inquirer = require("inquirer");
 var mysql = require("mysql");
 var inventory;
+require("console.table");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -10,8 +11,16 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 
+connection.connect(function(err){
+  if (err) throw err; 
+    console.log("connected")
+    readItems()
+
+})
+
 
 function start() {
+  console.log("======")
   inquirer
     .prompt([
       {
@@ -23,14 +32,13 @@ function start() {
       name: "quantity",
       type: "input",
       message: "How many would you like to purchase?"
-
       }
     ])
     .then(function(answer) {
       // based on their answer, either call the bid or the post functions
-      console.log(answer.idNum)
+      // console.log(answer.idNum)
       var chooseinv = inventory[answer.idNum -1].stock_quantity;
-      console.log(chooseinv);
+      // console.log(chooseinv);
       if (chooseinv >= answer.quantity) {
         connection.query(
           "UPDATE products SET ? WHERE ?",
@@ -45,7 +53,8 @@ function start() {
           function(error) {
             if (error) throw err;
             console.log("You bought " + answer.quantity + " " + inventory[answer.idNum -1].product_name);
-            start();
+            //start();
+            keepShopping();
            
           }
         );
@@ -58,7 +67,23 @@ function start() {
     
 }
 
-
+function keepShopping () {
+  inquirer
+  .prompt([
+    {
+    name: "confirm",
+    type: "confirm",
+    message: " Would you like to kepp shopping?"
+   }
+  ]).then(function(answers){
+      //console.log(answers)
+      if (answers.confirm){
+        readItems()
+      }else {
+        return console.log("Thank you for shopping");
+      }
+  });
+};
 
 
 
@@ -70,16 +95,16 @@ function readItems() {
       if (err) throw err;
       // Log all results of the SELECT statement
       inventory = res;
-      console.log(inventory);
-      for (var i = 0; i < inventory.length; i++) {
+      // console.log(inventory);
+      // for (var i = 0; i < inventory.length; i++) {
 
-        console.log(inventory[i].id + ": " + inventory[i].product_name);
-      }
-      
+      //   console.log(inventory[i].id + ": " + inventory[i].product_name);
+      // }
+      console.table(inventory);
       start();
     });
 
   }
 
-  readItems();
+  // readItems();
   
